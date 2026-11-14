@@ -1,0 +1,43 @@
+rules:
+ 
+  - id: python-sqli-fstring
+    languages:
+      - python
+    severity: ERROR
+    message: "Security warning: SQL built with an f-string reaches execute(), SQL injection risk."
+    patterns:
+      - pattern-either:
+          
+          - pattern: $DB.execute(f"...")
+          
+          - patterns:
+              - pattern: |
+                  $SQL = f"..."
+                  ...
+                  $DB.execute($SQL, ...)
+          
+          - patterns:
+              - pattern: |
+                  $SQL = "..." + $X
+                  ...
+                  $DB.execute($SQL, ...)
+
+  
+  - id: python-idor-user-id-route
+    languages:
+      - python
+    severity: WARNING
+    message: "Security warning: route reads an id from the URL path but has no ownership/admin check, possible IDOR."
+    patterns:
+      - pattern: |
+          @app.route($ROUTE, ...)
+          def $FUNC(...):
+              ...
+      - metavariable-regex:
+          metavariable: $ROUTE
+          regex: '.*<int:.*>.*'
+      - pattern-not: |
+          @app.route($ROUTE, ...)
+          @admin_required
+          def $FUNC(...):
+              ...
