@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}登录 · 简易登录系统{% endblock %}
+
+{% block content %}
+  <div class="logo">登</div>
+  <h1>欢迎回来</h1>
+  <p class="subtitle">登录后进入你的个人主页</p>
+
+  <form method="post">
+    <label for="username">用户名</label>
+    <input
+      id="username"
+      name="username"
+      type="text"
+      maxlength="20"
+      value="{{ request.form.get('username', '') }}"
+      autocomplete="username"
+      required
+      autofocus
+    >
+
+    <label for="password">密码</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      autocomplete="current-password"
+      required
+    >
+
+    <button type="submit">登录</button>
+  </form>
+
+  <p class="switch">
+    还没有账号？<a href="{{ url_for('register') }}">立即注册</a>
+  </p>
+{% endblock %}

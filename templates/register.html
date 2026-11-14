@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}注册 · 简易登录系统{% endblock %}
+
+{% block content %}
+  <div class="logo">注</div>
+  <h1>创建账号</h1>
+  <p class="subtitle">填写下面的信息完成注册</p>
+
+  <form method="post">
+    <label for="username">用户名</label>
+    <input
+      id="username"
+      name="username"
+      type="text"
+      maxlength="20"
+      value="{{ request.form.get('username', '') }}"
+      autocomplete="username"
+      required
+      autofocus
+    >
+
+    <label for="password">密码</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      minlength="6"
+      autocomplete="new-password"
+      required
+    >
+
+    <label for="confirm_password">确认密码</label>
+    <input
+      id="confirm_password"
+      name="confirm_password"
+      type="password"
+      minlength="6"
+      autocomplete="new-password"
+      required
+    >
+
+    <button type="submit">注册</button>
+  </form>
+
+  <p class="switch">
+    已经有账号？<a href="{{ url_for('login') }}">去登录</a>
+  </p>
+{% endblock %}

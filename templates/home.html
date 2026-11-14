@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}个人主页 · 简易登录系统{% endblock %}
+
+{% block content %}
+  <div class="logo">✓</div>
+  <h1>个人主页</h1>
+  <p class="subtitle">登录成功，下面是你的账号信息。</p>
+
+  <div class="profile">
+    <div class="avatar">{{ username[0]|upper }}</div>
+    <div>
+      <p class="welcome">欢迎，{{ username }}</p>
+      <p class="hint">这是只有登录用户才能访问的页面。</p>
+    </div>
+  </div>
+
+  <form method="post" action="{{ url_for('logout') }}">
+    <button class="secondary" type="submit">退出登录</button>
+  </form>
+{% endblock %}
